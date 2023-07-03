@@ -22,13 +22,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-67cv*o4%^l##+1@%z_pqtg=ez(qqy!0=ta%n-v0urn^wgcee5s'
+# SECRET_KEY = ''
 
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure')
+SECRET_KEY = 'django-insecure <-67cv*o4%^l##+1@%z_pqtg=ez(qqy!0=ta%n-v0urn^wgcee5s>'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['abdulkadirduran.up.railway.app','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://abdulkadirduran.up.railway.app']
 
 # Application definition
 
@@ -122,16 +124,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  
-STATIC_ROOT = BASE_DIR / "staticfiles" 
+STATIC_ROOT = BASE_DIR / 'staticfiles' #new
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = 'cb681b7db1a9cf'
-EMAIL_HOST_PASSWORD = 'adf893ed07ae73'
-EMAIL_PORT = '2525'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#ttps settings 
+CSRF_COOKIE_SECURE =True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
